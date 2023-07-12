@@ -1,33 +1,37 @@
 package com.neoris.test.modelo;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "cliente")
 public class Cliente {
-	
-	@Id 
+
+	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long clienteID;
-	
+
 	private String contra;
-	
+
 	private int estado;
-	
+
 	@JsonIgnore
-	@OneToOne(mappedBy = "cliente", cascade = CascadeType.ALL)
-	private Cuenta cuenta;
-	
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Cuenta> cuenta;
+
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
 	@JoinColumn(name = "persona_id", referencedColumnName = "identificacion")
 	private Persona persona;
 
@@ -35,7 +39,7 @@ public class Cliente {
 		super();
 	}
 
-	public Cliente(Long clienteID, String contra, int estado, Cuenta cuenta, Persona persona) {
+	public Cliente(Long clienteID, String contra, int estado, List<Cuenta> cuenta, Persona persona) {
 		super();
 		this.clienteID = clienteID;
 		this.contra = contra;
@@ -68,11 +72,11 @@ public class Cliente {
 		this.estado = estado;
 	}
 
-	public Cuenta getCuenta() {
+	public List<Cuenta> getCuenta() {
 		return cuenta;
 	}
 
-	public void setCuenta(Cuenta cuenta) {
+	public void setCuenta(List<Cuenta> cuenta) {
 		this.cuenta = cuenta;
 	}
 
@@ -90,7 +94,4 @@ public class Cliente {
 				+ "]";
 	}
 
-	
-	
-	
 }

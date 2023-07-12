@@ -19,15 +19,11 @@ public class ClienteServImple implements ClienteServicio {
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
 
-	@Autowired
-	private PersonaRepositorio personaRepositorio;
-
 	@Override
 	public ResponseEntity<?> guardarCliente(Cliente cliente) throws Exception {
 		Cliente clienteLocal = clienteRepositorio.findByPersonaId(cliente.getPersona().getIdentificacion());
 		if (clienteLocal == null) {
 			clienteRepositorio.save(cliente);
-			personaRepositorio.save(cliente.getPersona());
 			return ResponseEntity.status(HttpStatus.CREATED).body("Cliente creado");
 		} else {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ClienteEncontradoException().getMessage());
