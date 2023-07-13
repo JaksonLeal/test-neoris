@@ -19,6 +19,9 @@ public class ClienteServImple implements ClienteServicio {
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
 
+	@Autowired
+	private PersonaRepositorio personaRepositorio;
+	
 	@Override
 	public ResponseEntity<?> guardarCliente(Cliente cliente) throws Exception {
 		Cliente clienteLocal = clienteRepositorio.findByPersonaId(cliente.getPersona().getIdentificacion());
@@ -52,11 +55,7 @@ public class ClienteServImple implements ClienteServicio {
 
 	@Override
 	public void eliminarCliente(Long id) throws Exception {
-
-		Cliente cliente = new Cliente();
-		cliente.setClienteID(id);
-		clienteRepositorio.delete(cliente);
-
+		clienteRepositorio.deleteById(id);
 	}
 
 	@Override
