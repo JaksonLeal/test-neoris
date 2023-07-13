@@ -1,9 +1,12 @@
 package com.neoris.test.controlador;
 
+import java.sql.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,10 +35,10 @@ public class MovimientoControlador {
 		return movimientosServicio.listarMovimientos();
 	}
 	
-	@GetMapping("/buscarPorRango")
-	public ResponseEntity<?> buscarPorRango() throws Exception {
-		System.out.println("entro a listarMovimiento");
-		return movimientosServicio.listarMovimientos();
+	@GetMapping("/buscarPorFeNom/{fecha}/{nombre}")
+	public ResponseEntity<?> buscarPorFeNom(@PathVariable Date fecha, @PathVariable String nombre) throws Exception {
+		System.out.println("Entro a buscarPorRango y trae"+fecha+"<>"+nombre);
+		return movimientosServicio.buscarPorFeNom(fecha, nombre);
 	}
 
 }
