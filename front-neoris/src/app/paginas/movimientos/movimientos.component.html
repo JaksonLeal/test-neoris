@@ -1,1 +1,15 @@
-<p>movimientos works!</p>
+<div style="float:left">
+    <button class="btn" (click)="mostrarPantalla('buscarCliente')">Buscar</button>
+    <button class="btn" (click)="mostrarPantalla('crearCliente')">Nuevo</button>
+    <button class="btn" (click)="mostrarPantalla('listarClientes')">Listar</button>
+
+    <!-- buscar movimientos -->
+    <app-buscar-movimientos *ngIf="pantallas[0].mostrar"></app-buscar-movimientos>
+
+    <!-- crear movimientos -->
+    <app-crear-movimientos *ngIf="pantallas[1].mostrar"></app-crear-movimientos>
+
+    <!-- listar movimientos -->
+    <app-listar-movimientos *ngIf="pantallas[2].mostrar"></app-listar-movimientos>
+
+</div>

@@ -1,0 +1,29 @@
+<div>
+    <form action="">
+        <div>
+            <label for="">Número De Cuenta</label>
+            <input type="text" [(ngModel)]="movimiento.cuenta.numCuenta" name="numCuenta">
+        </div>
+        <div>
+            <label for="">Tipo De Movimiento</label>
+            <select [(ngModel)]="movimiento.tipoMovimiento" name="tipoMovimiento">
+                <option value="retiro">Retiro</option>
+                <option value="deposito">Deposito</option>
+            </select>
+        </div>
+        <div>
+            <label for="">Valor</label>
+            <input type="number" [(ngModel)]="movimiento.valor" name="valor">
+        </div>
+        <div>
+            <label for="">Saldo Disponible</label>
+            <input type="text" [(ngModel)]="movimiento.saldo" name="saldo">
+        </div>
+        <div>
+            <label for="">Fecha</label>
+            <input type="date" [(ngModel)]="movimiento.fecha" name="fecha"
+            placeholder="Digite la fecha">
+        </div>
+        <button (click)="enviar()">Guardar</button>
+    </form>
+</div>

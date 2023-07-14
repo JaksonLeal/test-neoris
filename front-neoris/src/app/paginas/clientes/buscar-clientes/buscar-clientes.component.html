@@ -1,10 +1,10 @@
 <div *ngIf="!auxBuscar">
-    <input type="number" placeholder="Ingrese el ID de Cliente" #clienteID>
+    <input type="number" placeholder="Ingrese el ID de la cuenta" #clienteID>
     <button (click)="buscar(clienteID.valueAsNumber)">BUSCAR</button>
 </div>
 <div *ngIf="auxBuscar">
-    <table class="table table-striped" >
-        <thead class="table-dark text-center">
+    <table>
+        <thead>
             <tr>
                 <th>CEDULA</th>
                 <th>NOMBRE</th>

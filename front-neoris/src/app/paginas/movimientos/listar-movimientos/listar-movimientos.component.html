@@ -1,0 +1,26 @@
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>N° CUENTA</th>
+                <th>TIPO DE CUENTA</th>
+                <th>TIPO DE MOVIMIENTO</th>
+                <th>VALOR</th>
+                <th>SALDO DISPONIBLE</th>
+                <th>CLIENTE</th>
+                <th>IDENTIFICACION</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let movimiento of movimientos">
+                <td>{{movimiento.cuenta.numCuenta}}</td>
+                <td>{{movimiento.cuenta.tipoCuenta}}</td>
+                <td>{{movimiento.tipoMovimiento}}</td>
+                <td>{{movimiento.valor}}</td>
+                <td>{{movimiento.saldo}}</td>
+                <td>{{movimiento.cuenta.cliente.persona.nombre}}</td>
+                <td>{{movimiento.cuenta.cliente.persona.identificacion}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

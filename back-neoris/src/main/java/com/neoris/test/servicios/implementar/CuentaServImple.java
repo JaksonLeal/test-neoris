@@ -50,9 +50,7 @@ public class CuentaServImple implements CuentaServicio {
 
 	@Override
 	public void eliminarCuenta(String numCuenta) throws Exception {
-		Cuenta cuenta = new Cuenta();
-		cuenta.setNumCuenta(numCuenta);
-		cuentaRepositorio.delete(cuenta);
+		cuentaRepositorio.deleteById(numCuenta);
 	}
 
 	@Override

@@ -28,9 +28,7 @@ export class CrearClientesComponent {
   }
 
   enviar() {
-    console.log(this.cliente);
     this.clienteServ.guardarCliente(this.cliente).subscribe(respuesta => {
-      console.log(respuesta);
       alert("se creo el cliente con exito");
     });
   }

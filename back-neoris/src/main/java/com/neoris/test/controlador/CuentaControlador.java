@@ -38,9 +38,9 @@ public class CuentaControlador {
 	}
 
 	@PutMapping("/actualizar")
-	public ResponseEntity<Cuenta> actualizarCuenta(@RequestBody Cuenta cliente) throws Exception {
-		System.out.println("la cuenta trae: " + cliente.toString());
-		return ResponseEntity.ok(cuentaServicio.actualizarCuenta(cliente));
+	public ResponseEntity<Cuenta> actualizarCuenta(@RequestBody Cuenta cuenta) throws Exception {
+		System.out.println("la cuenta trae: " + cuenta.toString());
+		return ResponseEntity.ok(cuentaServicio.actualizarCuenta(cuenta));
 	}
 
 	@DeleteMapping("/{numCuenta}")
