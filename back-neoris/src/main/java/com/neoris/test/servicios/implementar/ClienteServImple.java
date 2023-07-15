@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import com.neoris.test.excepciones.ClienteEncontradoException;
 import com.neoris.test.modelo.Cliente;
 import com.neoris.test.repositorio.ClienteRepositorio;
-import com.neoris.test.repositorio.PersonaRepositorio;
 import com.neoris.test.servicios.ClienteServicio;
 
 @Service
@@ -18,9 +17,6 @@ public class ClienteServImple implements ClienteServicio {
 
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
-
-	@Autowired
-	private PersonaRepositorio personaRepositorio;
 	
 	@Override
 	public ResponseEntity<?> guardarCliente(Cliente cliente) throws Exception {

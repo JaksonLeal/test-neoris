@@ -26,7 +26,7 @@ export class CrearMovimientosComponent {
     this.movimientoServ.guardarMovimientos(this.movimiento).subscribe(respuesta => {
       console.log(respuesta);
     });
-    alert("se creo la cuenta con exito");
+    alert("Movimiento Realizado con exito");
   }
 
 }

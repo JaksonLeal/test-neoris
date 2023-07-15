@@ -1,5 +1,5 @@
 <div *ngIf="!auxBuscar">
-    <input type="number" placeholder="Ingrese el ID de la cuenta" #clienteID>
+    <input type="number" placeholder="Ingrese el ID del cliente" #clienteID>
     <button (click)="buscar(clienteID.valueAsNumber)">BUSCAR</button>
 </div>
 <div *ngIf="auxBuscar">
