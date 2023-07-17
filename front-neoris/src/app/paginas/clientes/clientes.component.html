@@ -1,15 +1,18 @@
-<div style="float:left">
-    <button class="btn" (click)="mostrarPantalla('buscarCliente')">Buscar</button>
-    <button class="btn" (click)="mostrarPantalla('crearCliente')">Nuevo</button>
-    <button class="btn" (click)="mostrarPantalla('listarClientes')">Listar</button>
+<div class="contenedor">
+    <div style="margin-bottom: 10px;">
+        <button class="btn" (click)="mostrarPantalla('buscarCliente')">Buscar</button>
+        <button class="btn" (click)="mostrarPantalla('crearCliente')">Nuevo</button>
+        <button class="btn" (click)="mostrarPantalla('listarClientes')">Listar</button>
+    </div>
 
     <!-- buscar cliente -->
-    <app-buscar-clientes *ngIf="pantallas[0].mostrar"></app-buscar-clientes>
+    <div style="margin-left: 6px;">
+        <app-buscar-clientes *ngIf="pantallas[0].mostrar"></app-buscar-clientes>
 
-    <!-- crear cliente -->
-    <app-crear-clientes *ngIf="pantallas[1].mostrar"></app-crear-clientes>
+        <!-- crear cliente -->
+        <app-crear-clientes *ngIf="pantallas[1].mostrar"></app-crear-clientes>
 
-    <!-- listar clientes -->
-    <app-listar-clientes *ngIf="pantallas[2].mostrar"></app-listar-clientes>
-
+        <!-- listar clientes -->
+        <app-listar-clientes *ngIf="pantallas[2].mostrar"></app-listar-clientes>
+    </div>
 </div>

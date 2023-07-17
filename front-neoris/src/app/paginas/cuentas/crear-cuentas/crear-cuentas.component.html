@@ -1,36 +1,37 @@
 <div>
     <form action="">
-        <div>
-            <label for="">Número De Cuenta</label>
-            <input type="text" [(ngModel)]="cuenta.numCuenta" name="numCuenta">
-        </div>
-        <div>
-            <label for="">Tipo De Cuenta</label>
-            <select id="selGen" [(ngModel)]="cuenta.tipoCuenta" name="tipoCuenta">
-                <option value="ahorros">Ahorros</option>
-                <option value="corriente">Corriente</option>
-            </select>
-        </div>
-        <div>
-            <label for="">Saldo Inicial</label>
-            <input type="number" [(ngModel)]="cuenta.saldoInicial" name="saldoInicial">
-        </div>
-        <div>
-            <label>Escoger estado de la cuenta:</label>
-            <select id="selEstado" [(ngModel)]="cuenta.estado" name="estado">
-                <option value="0">Inactivo</option>
-                <option value="1">Activo</option>
-            </select>
-        </div>
-        <div>
-            <label for="">Id del cliente</label>
-            <input type="text" [(ngModel)]="cuenta.cliente.clienteID" name="clienteID">
-        </div>
-        <div>
-            <label for="">Contraseña del cliente</label>
-            <input type="text" [(ngModel)]="cuenta.cliente.contra" name="contra"
-            placeholder="Digite su Contraseña">
-        </div>
-        <button class="btnSubmit" (click)="enviar()">Guardar</button>
+        <ul>
+            <li>
+                <label for="">Número De Cuenta</label>
+                <input type="text" [(ngModel)]="cuenta.numCuenta" name="numCuenta">
+            </li>
+            <li>
+                <label for="">Tipo De Cuenta</label>
+                <select id="selGen" [(ngModel)]="cuenta.tipoCuenta" name="tipoCuenta">
+                    <option value="ahorros">Ahorros</option>
+                    <option value="corriente">Corriente</option>
+                </select>
+            </li>
+            <li>
+                <label for="">Saldo Inicial</label>
+                <input type="number" [(ngModel)]="cuenta.saldoInicial" name="saldoInicial">
+            </li>
+            <li>
+                <label>Escoger estado de la cuenta:</label>
+                <select id="selEstado" [(ngModel)]="cuenta.estado" name="estado">
+                    <option value="0">Inactivo</option>
+                    <option value="1">Activo</option>
+                </select>
+            </li>
+            <li>
+                <label for="">Id del cliente</label>
+                <input type="text" [(ngModel)]="cuenta.cliente.clienteID" name="clienteID">
+            </li>
+            <li>
+                <label for="">Contraseña del cliente</label>
+                <input type="text" [(ngModel)]="cuenta.cliente.contra" name="contra" placeholder="Digite su Contraseña">
+            </li>
+            <button class="btnSubmit" (click)="enviar()">Guardar</button>
+        </ul>
     </form>
 </div>

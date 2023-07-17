@@ -1,15 +1,17 @@
-<div style="float:left">
-    <button class="btn" (click)="mostrarPantalla('buscarCuentas')">Buscar</button>
-    <button class="btn" (click)="mostrarPantalla('crearCuentas')">Nuevo</button>
-    <button class="btn" (click)="mostrarPantalla('listarCuentass')">Listar</button>
+<div class="contenedor">
+    <div style="margin-bottom: 10px;">
+        <button class="btn" (click)="mostrarPantalla('buscarCuentas')">Buscar</button>
+        <button class="btn" (click)="mostrarPantalla('crearCuentas')">Nuevo</button>
+        <button class="btn" (click)="mostrarPantalla('listarCuentass')">Listar</button>
+    </div>
+    <div style="margin-left: 6px;">
+        <!-- buscar cliente -->
+        <app-buscar-cuentas *ngIf="pantallas[0].mostrar"></app-buscar-cuentas>
 
-    <!-- buscar cliente -->
-    <app-buscar-cuentas *ngIf="pantallas[0].mostrar"></app-buscar-cuentas>
+        <!-- crear cliente -->
+        <app-crear-cuentas *ngIf="pantallas[1].mostrar"></app-crear-cuentas>
 
-    <!-- crear cliente -->
-    <app-crear-cuentas *ngIf="pantallas[1].mostrar"></app-crear-cuentas>
-
-    <!-- listar clientes -->
-    <app-listar-cuentas *ngIf="pantallas[2].mostrar"></app-listar-cuentas>
-
+        <!-- listar clientes -->
+        <app-listar-cuentas *ngIf="pantallas[2].mostrar"></app-listar-cuentas>
+    </div>
 </div>

@@ -1,7 +1,9 @@
-<div style="float:left">
-    <button class="btn" (click)="mostrarPantalla('listarMovimientos')">Listar</button>
-
-    <!-- listar movimientos -->
-    <app-listar-movimientos *ngIf="pantallas[0].mostrar"></app-listar-movimientos>
-
+<div class="contenedor">
+    <div style="margin-bottom: 10px;">
+        <button class="btn" (click)="mostrarPantalla('listarMovimientos')">Listar</button>
+    </div>
+    <div style="margin-left: 6px;">
+        <!-- listar movimientos -->
+        <app-listar-movimientos *ngIf="pantallas[0].mostrar"></app-listar-movimientos>
+    </div>
 </div>

@@ -80,19 +80,23 @@ export class BuscarCuentasComponent {
   }
 
   Editar(cuenta: any) {
-    this.cuentaServ.obtenerCuenta(cuenta.numCuenta).subscribe({
-      next: (respuesta) => {
-        this.cuenta = respuesta;
-      },
-      error: (error) => {
-        console.log(error)
-        alert(error.error.text)
-      },
-      complete: () => {
-        console.log("exitoso")
-      }
-    });
-    this.auxEditar = true;
+    if (!this.auxEditar) {
+      this.cuentaServ.obtenerCuenta(cuenta.numCuenta).subscribe({
+        next: (respuesta) => {
+          this.cuenta = respuesta;
+        },
+        error: (error) => {
+          console.log(error)
+          alert(error.error.text)
+        },
+        complete: () => {
+          console.log("exitoso")
+        }
+      });
+      this.auxEditar = true;
+    } else {
+      this.auxEditar = false;
+    }
   }
 
   enviarCliente() {

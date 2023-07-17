@@ -59,31 +59,35 @@ export class BuscarClientesComponent {
         },
         error: (error) => {
           let mensaje = error.error.text;
-        let verificar = confirm(mensaje);
-        verificar ? window.location.reload() : window.location.reload();
+          let verificar = confirm(mensaje);
+          verificar ? window.location.reload() : window.location.reload();
         },
         complete: () => {
           console.log("exitoso");
         }
       }
       );
-      
+
     }
   }
 
   Editar(cliente: any) {
-    this.clienteServ.obtenerCliente(cliente.clienteID).subscribe({
-      next: (respuesta) => {
-        this.cliente = respuesta;
-      },
-      error: (error) => {
-        alert(error.error.text)
-      },
-      complete: () => {
-        console.log("exitoso")
-      }
-    });
-    this.auxEditar = true;
+    if (!this.auxEditar) {
+      this.clienteServ.obtenerCliente(cliente.clienteID).subscribe({
+        next: (respuesta) => {
+          this.cliente = respuesta;
+        },
+        error: (error) => {
+          alert(error.error.text)
+        },
+        complete: () => {
+          console.log("exitoso")
+        }
+      });
+      this.auxEditar = true;
+    } else {
+      this.auxEditar = false;
+    }
   }
 
   enviar() {
