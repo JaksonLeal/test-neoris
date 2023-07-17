@@ -1,9 +1,8 @@
 package com.neoris.test.controlador;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,35 +23,40 @@ public class ClienteControlador {
 
 	@Autowired
 	private ClienteServicio clienteServicio;
+	
+	@Autowired(required=true)
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@PostMapping("/guardar")
 	public ResponseEntity<?> guardarCliente(@RequestBody Cliente cliente) throws Exception {
 		System.out.println("el cliente trae: " + cliente.toString());
+		cliente.setContra(this.bCryptPasswordEncoder.encode(cliente.getContra()));
 		return clienteServicio.guardarCliente(cliente);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Cliente> obtenerCliente(@PathVariable Long id) throws Exception {
+	public ResponseEntity<?> obtenerCliente(@PathVariable Long id) throws Exception {
 		System.out.println("el clienteID es " + id);
-		return ResponseEntity.ok(clienteServicio.obtenerCliente(id));
+		return clienteServicio.obtenerCliente(id);
 	}
 
 	@PutMapping("/actualizar")
-	public ResponseEntity<Cliente> actualizarCliente(@RequestBody Cliente cliente) throws Exception {
+	public ResponseEntity<?> actualizarCliente(@RequestBody Cliente cliente) throws Exception {
 		System.out.println("el cliente trae: " + cliente.toString());
-		return ResponseEntity.ok(clienteServicio.actualizarCliente(cliente));
+		cliente.setContra(this.bCryptPasswordEncoder.encode(cliente.getContra()));
+		return clienteServicio.actualizarCliente(cliente);
 	}
 
 	@DeleteMapping("/{id}")
-	public void eliminarCliente(@PathVariable Long id) throws Exception {
+	public ResponseEntity<?> eliminarCliente(@PathVariable Long id) throws Exception {
 		System.out.println("el clienteID es: " + id);
-		clienteServicio.eliminarCliente(id);
+		return clienteServicio.eliminarCliente(id);
 	}
 
 	@GetMapping("/listar")
-	public ResponseEntity<List<Cliente>> listarClientes() throws Exception {
+	public ResponseEntity<?> listarClientes() throws Exception {
 		System.out.println("entro a listarClientes");
-		return ResponseEntity.ok(clienteServicio.listarClientes());
+		return clienteServicio.listarClientes();
 	}
 
 }

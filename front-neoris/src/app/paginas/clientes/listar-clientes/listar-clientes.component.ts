@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 
 @Component({
@@ -12,13 +11,33 @@ export class ListarClientesComponent {
   clientes: any[];
   auxEditar: boolean = false;
   cliente: any;
-  
-  constructor(private clienteServ: ClienteService) { }
+
+  constructor(private clienteServ: ClienteService) {
+    this.cliente = {
+      "contra": "",
+      "estado": 0,
+      "persona": {
+        "identificacion": "",
+        "nombre": "",
+        "edad": "",
+        "genero": "",
+        "direccion": "",
+        "telefono": ""
+      }
+    };
+  }
 
   ngOnInit(): void {
-    this.clienteServ.getListClientes().subscribe((respuesta: any) => {
-      this.clientes = respuesta;
-      //console.log(respuesta[0]);
+    this.clienteServ.getListClientes().subscribe({
+      next: (respuesta) => {
+        this.clientes = respuesta;
+      },
+      error: (error) => {
+        alert(error.error.text)
+      },
+      complete: () => {
+        console.log("exitoso")
+      }
     });
   }
 
@@ -27,17 +46,33 @@ export class ListarClientesComponent {
     let verificar = confirm(pregunta);
 
     if (verificar) {
-      this.clienteServ.eliminarCliente(cliente.clienteID).subscribe();
+      this.clienteServ.eliminarCliente(cliente.clienteID).subscribe({
+        next: (respuesta) => {
+          console.log(respuesta);
+        },
+        error: (error) => {
+          alert(error.error.text);
+        },
+        complete: () => {
+          console.log("exitoso");
+        }
+      });
       this.clientes = this.clientes.filter(u => u !== cliente);
-      alert("cliente eliminado");
     }
   }
 
   Editar(cliente: any) {
     if (!this.auxEditar) {
-      this.clienteServ.obtenerCliente(cliente.clienteID).subscribe(respuesta => {
-        //console.log(respuesta);
-        this.cliente = respuesta;
+      this.clienteServ.obtenerCliente(cliente.clienteID).subscribe({
+        next: (respuesta) => {
+          this.cliente = respuesta;
+        },
+        error: (error) => {
+          alert(error.error.text)
+        },
+        complete: () => {
+          console.log("exitoso")
+        }
       });
       this.auxEditar = true;
     } else {
@@ -46,10 +81,18 @@ export class ListarClientesComponent {
   }
 
   enviar() {
-    this.clienteServ.editarCliente(this.cliente).subscribe(respuesta => {
-      console.log(respuesta);
-      alert("se actualizo con exito");
+    this.clienteServ.editarCliente(this.cliente).subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+      },
+      error: (error) => {
+        alert(error.error.text)
+      },
+      complete: () => {
+        console.log("exitoso")
+      }
     });
+    window.location.reload();
     this.auxEditar = false;
   }
 

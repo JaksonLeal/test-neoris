@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 
 @Component({
@@ -9,27 +8,39 @@ import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 })
 export class CrearClientesComponent {
 
-  cliente={
-    "contra": "",
-    "estado": 0,
-    "persona": {
+  public cliente: any;
+
+  constructor(private clienteServ: ClienteService) {
+    this.cliente = {
+      "contra": "",
+      "estado": 0,
+      "persona": {
         "identificacion": "",
         "nombre": "",
         "edad": "",
         "genero": "",
         "direccion": "",
         "telefono": ""
-    }
-  };
-
-  constructor(private clienteServ: ClienteService) { }
+      }
+    };
+  }
 
   ngOnInit(): void {
   }
 
   enviar() {
-    this.clienteServ.guardarCliente(this.cliente).subscribe(respuesta => {
-      alert("se creo el cliente con exito");
+    this.clienteServ.guardarCliente(this.cliente).subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+      },
+      error: (error) => {
+        let mensaje = error.error.text;
+        let verificar = confirm(mensaje);
+        verificar ? window.location.reload() : window.location.reload();
+      },
+      complete: () => {
+        console.log("exitoso");
+      }
     });
   }
 

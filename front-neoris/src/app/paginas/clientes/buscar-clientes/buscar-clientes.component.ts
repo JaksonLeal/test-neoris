@@ -12,6 +12,18 @@ export class BuscarClientesComponent {
   auxBuscar: boolean = false;
   auxEditar: boolean = false;
   constructor(private clienteServ: ClienteService) {
+    this.cliente = {
+      "contra": "",
+      "estado": 0,
+      "persona": {
+        "identificacion": "",
+        "nombre": "",
+        "edad": "",
+        "genero": "",
+        "direccion": "",
+        "telefono": ""
+      }
+    };
   }
 
   ngOnInit(): void {
@@ -19,8 +31,16 @@ export class BuscarClientesComponent {
 
   buscar(clienteID: number) {
     if (!this.auxBuscar) {
-      this.clienteServ.obtenerCliente(clienteID).subscribe(respuesta => {
-        this.cliente = respuesta;
+      this.clienteServ.obtenerCliente(clienteID).subscribe({
+        next: (respuesta) => {
+          this.cliente = respuesta;
+        },
+        error: (error) => {
+          alert(error.error.text)
+        },
+        complete: () => {
+          console.log("exitoso")
+        }
       });
       this.auxBuscar = true;
     } else {
@@ -33,22 +53,50 @@ export class BuscarClientesComponent {
     let pregunta = "¿Esta seguro que desea eliminar el usuario con cedula " + cliente.persona.identificacion + "?";
     let verificar = confirm(pregunta);
     if (verificar) {
-      this.clienteServ.eliminarCliente(cliente.clienteID).subscribe();
-      alert("cliente eliminado");
-      window.location.reload();
+      this.clienteServ.eliminarCliente(cliente.clienteID).subscribe({
+        next: (respuesta) => {
+          console.log(respuesta);
+        },
+        error: (error) => {
+          let mensaje = error.error.text;
+        let verificar = confirm(mensaje);
+        verificar ? window.location.reload() : window.location.reload();
+        },
+        complete: () => {
+          console.log("exitoso");
+        }
+      }
+      );
+      
     }
   }
 
   Editar(cliente: any) {
-    this.clienteServ.obtenerCliente(cliente.clienteID).subscribe(respuesta => {
-      this.cliente = respuesta;
+    this.clienteServ.obtenerCliente(cliente.clienteID).subscribe({
+      next: (respuesta) => {
+        this.cliente = respuesta;
+      },
+      error: (error) => {
+        alert(error.error.text)
+      },
+      complete: () => {
+        console.log("exitoso")
+      }
     });
     this.auxEditar = true;
   }
 
   enviar() {
-    this.clienteServ.editarCliente(this.cliente).subscribe(respuesta => {
-      alert("se actualizo con exito");
+    this.clienteServ.editarCliente(this.cliente).subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+      },
+      error: (error) => {
+        alert(error.error.text)
+      },
+      complete: () => {
+        console.log("exitoso")
+      }
     });
     this.auxEditar = false;
     this.auxBuscar = false;

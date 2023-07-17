@@ -1,15 +1,15 @@
 <div>
     <form action="">
         <div>
-            <label for="">Cedula</label>
+            <label>Cedula</label>
             <input type="text" [(ngModel)]="cliente.persona.identificacion" name="identificacion">
         </div>
         <div>
-            <label for="">Nombre</label>
+            <label>Nombre</label>
             <input type="text" [(ngModel)]="cliente.persona.nombre" name="nombre">
         </div>
         <div>
-            <label for="">Edad</label>
+            <label>Edad</label>
             <input type="number" [(ngModel)]="cliente.persona.edad" name="edad">
         </div>
         <div>
@@ -20,15 +20,15 @@
             </select>
         </div>
         <div>
-            <label for="">Direccion</label>
+            <label>Direccion</label>
             <input type="text" [(ngModel)]="cliente.persona.direccion" name="direccion">
         </div>
         <div>
-            <label for="">Teléfono</label>
+            <label>Teléfono</label>
             <input type="text" [(ngModel)]="cliente.persona.telefono" name="telefono">
         </div>
         <div>
-            <label for="">Contra</label>
+            <label>Contra</label>
             <input type="text" [(ngModel)]="cliente.contra" name="contra">
         </div>
         <div>
@@ -38,6 +38,6 @@
                 <option value="1">Activo</option>
             </select>
         </div>
-        <button (click)="enviar()">Guardar</button>
+        <button class="btnSubmit" (click)="enviar()">Guardar</button>
     </form>
 </div>

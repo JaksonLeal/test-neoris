@@ -12,9 +12,9 @@ export class CuentasComponent {
   constructor() {
     // se crea para que el se oculten y se muestren los dashboard
     this.pantallas = [
-      { "pantalla": "buscarCliente", "mostrar": true },
-      { "pantalla": "crearCliente", "mostrar": false },
-      { "pantalla": "listarClientes", "mostrar": false }];
+      { "pantalla": "buscarCuentas", "mostrar": true },
+      { "pantalla": "crearCuentas", "mostrar": false },
+      { "pantalla": "listarCuentass", "mostrar": false }];
   }
   
   mostrarPantalla(pantalla: any) {

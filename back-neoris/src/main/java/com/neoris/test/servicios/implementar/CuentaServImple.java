@@ -7,9 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.neoris.test.excepciones.ClienteEncontradoException;
-import com.neoris.test.excepciones.CuentaEncontradaException;
+import com.neoris.test.excepciones.CuentaException;
+import com.neoris.test.modelo.Cliente;
 import com.neoris.test.modelo.Cuenta;
+import com.neoris.test.repositorio.ClienteRepositorio;
 import com.neoris.test.repositorio.CuentaRepositorio;
 import com.neoris.test.servicios.CuentaServicio;
 
@@ -19,43 +20,69 @@ public class CuentaServImple implements CuentaServicio {
 	@Autowired
 	private CuentaRepositorio cuentaRepositorio;
 
+	@Autowired
+	private ClienteRepositorio clienteRepositorio;
+
 	@Override
 	public ResponseEntity<?> guardarCuenta(Cuenta cuenta) throws Exception {
 		Cuenta cuentaLocal = cuentaRepositorio.findByNumCuenta(cuenta.getNumCuenta());
-		System.out.println("jakson"+ cuentaLocal);
+		Cliente clienteLocal = clienteRepositorio.findByClienteID(cuenta.getCliente().getClienteID());
 		if (cuentaLocal == null) {
-			cuentaLocal = cuentaRepositorio.save(cuenta);
-			return ResponseEntity.status(HttpStatus.CREATED).body("Cuenta creada!");
+			if (clienteLocal != null) {
+				cuentaRepositorio.save(cuenta);
+				return ResponseEntity.status(HttpStatus.OK).body("Cuenta creada!");
+			} else {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new CuentaException("No existe cliente con ese ID").getMessage());
+			}
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new CuentaEncontradaException().getMessage());
+			return ResponseEntity.status(HttpStatus.OK).body(new CuentaException().getMessage());
 		}
 	}
 
 	@Override
-	public Cuenta obtenerCuenta(String numCuenta) throws Exception {
-		return cuentaRepositorio.findByNumCuenta(numCuenta);
+	public ResponseEntity<?> obtenerCuenta(String numCuenta) throws Exception {
+
+		Cuenta buscarCuenta = cuentaRepositorio.findByNumCuenta(numCuenta);
+		if (buscarCuenta != null) {
+			return ResponseEntity.status(HttpStatus.OK).body(cuentaRepositorio.findByNumCuenta(numCuenta));
+		} else {
+			return ResponseEntity.status(HttpStatus.OK).body(new CuentaException("Cuenta no encontrada").getMessage());
+		}
 	}
 
 	@Override
-	public Cuenta actualizarCuenta(Cuenta cuenta) throws Exception {
+	public ResponseEntity<?> actualizarCuenta(Cuenta cuenta) throws Exception {
 		Cuenta cuentaLocal = cuentaRepositorio.findByNumCuenta(cuenta.getNumCuenta());
 		if (cuentaLocal != null) {
 			cuentaRepositorio.save(cuenta);
+			return ResponseEntity.status(HttpStatus.OK).body("Cuenta actualizada");
 		} else {
-			System.out.println("La cuenta no existe");
-			throw new ClienteEncontradoException("La cuenta no existe");
+			return ResponseEntity.status(HttpStatus.OK).body(new CuentaException("La cuenta no existe").getMessage());
 		}
-		return cuentaLocal;
 	}
 
 	@Override
-	public void eliminarCuenta(String numCuenta) throws Exception {
+	public ResponseEntity<?> eliminarCuenta(String numCuenta) throws Exception {
 		cuentaRepositorio.deleteById(numCuenta);
+		Cuenta cuentaEliminado = cuentaRepositorio.findByNumCuenta(numCuenta);
+		if (cuentaEliminado == null) {
+			return ResponseEntity.status(HttpStatus.OK).body("Cuenta eliminada");
+		} else {
+			return ResponseEntity.status(HttpStatus.CONFLICT)
+					.body(new CuentaException("La cuenta no se pudo eliminar").getMessage());
+		}
 	}
 
 	@Override
-	public List<Cuenta> listarCuentas() {
-		return cuentaRepositorio.findAll();
+	public ResponseEntity<?> listarCuentas() {
+		List<Cuenta> listadoCuentas = cuentaRepositorio.findAll();
+		if (!listadoCuentas.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.OK).body(listadoCuentas);
+		} else {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new CuentaException("No hay cuentas para mostrar").getMessage());
+		}
 	}
 
 }

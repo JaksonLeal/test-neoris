@@ -12,9 +12,17 @@ export class ListarMovimientosComponent {
   constructor(private movimientoServ: MovimientoService) { }
 
   ngOnInit(): void {
-    this.movimientoServ.getListMovimientos().subscribe((respuesta: any) => {
-      this.movimientos = respuesta;
-      console.log(this.movimientos);
+    this.movimientoServ.getListMovimientos().subscribe({
+      next: (respuesta) => {
+        console.log(respuesta);
+        this.movimientos = respuesta;
+      },
+      error: (error) => {
+        alert(error.error.text)
+      },
+      complete: () => {
+        console.log("exitoso")
+      }
     });
   }
 

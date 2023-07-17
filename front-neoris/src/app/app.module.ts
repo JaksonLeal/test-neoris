@@ -18,9 +18,7 @@ import { BuscarClientesComponent } from './paginas/clientes/buscar-clientes/busc
 import { CrearCuentasComponent } from './paginas/cuentas/crear-cuentas/crear-cuentas.component';
 import { ListarCuentasComponent } from './paginas/cuentas/listar-cuentas/listar-cuentas.component';
 import { BuscarCuentasComponent } from './paginas/cuentas/buscar-cuentas/buscar-cuentas.component';
-import { CrearMovimientosComponent } from './paginas/movimientos/crear-movimientos/crear-movimientos.component';
 import { ListarMovimientosComponent } from './paginas/movimientos/listar-movimientos/listar-movimientos.component';
-import { BuscarMovimientosComponent } from './paginas/movimientos/buscar-movimientos/buscar-movimientos.component';
 
 @NgModule({
   declarations: [
@@ -38,9 +36,7 @@ import { BuscarMovimientosComponent } from './paginas/movimientos/buscar-movimie
     CrearCuentasComponent,
     ListarCuentasComponent,
     BuscarCuentasComponent,
-    CrearMovimientosComponent,
-    ListarMovimientosComponent,
-    BuscarMovimientosComponent    
+    ListarMovimientosComponent
   ],
   imports: [
     BrowserModule,

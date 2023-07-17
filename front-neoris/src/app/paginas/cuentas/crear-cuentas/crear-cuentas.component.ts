@@ -15,7 +15,7 @@ export class CrearCuentasComponent {
     "estado": 0,
     "cliente": {
       "clienteID": 0,
-      "contra": ""      
+      "contra": ""
     }
   };
 
@@ -25,9 +25,20 @@ export class CrearCuentasComponent {
   }
 
   enviar() {
-    this.cuentaServ.guardarCuenta(this.cuenta).subscribe(respuesta => {
-      alert("se creo la cuenta con exito"+ respuesta);
-    });
+    this.cuentaServ.guardarCuenta(this.cuenta).subscribe(
+      {
+        next: (respuesta) => {
+          console.log(respuesta);
+        },
+        error: (error) => {
+          let mensaje = error.error.text;
+          let verificar = confirm(mensaje);
+          verificar ? window.location.reload() : window.location.reload();
+        },
+        complete: () => {
+          console.log("exitoso");
+        }
+      });
   }
 
 }

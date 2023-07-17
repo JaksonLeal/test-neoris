@@ -8,8 +8,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.neoris.test.excepciones.MovimientoEncontradoException;
+import com.neoris.test.excepciones.MovimientoException;
+import com.neoris.test.modelo.Cuenta;
 import com.neoris.test.modelo.Movimientos;
+import com.neoris.test.repositorio.CuentaRepositorio;
 import com.neoris.test.repositorio.MovimientosRepositorio;
 import com.neoris.test.servicios.MovimientosServicio;
 
@@ -19,20 +21,35 @@ public class MovimientosServImple implements MovimientosServicio {
 	@Autowired
 	private MovimientosRepositorio movimientosRepositorio;
 
+	@Autowired
+	private CuentaRepositorio cuentaRepositorio;
+
 	@Override
 	public ResponseEntity<?> guardarMovimiento(Movimientos movimiento) throws Exception {
-		Movimientos movimientoLocal = movimientosRepositorio.findByID(movimiento.getID());
-		if (movimientoLocal == null) {
-			movimientoLocal = movimientosRepositorio.save(movimiento);
+		Movimientos movimientoLocal = movimientosRepositorio.save(movimiento);
+		if (movimientoLocal.getID() != null) {
+			Cuenta cuentaOperacion = cuentaRepositorio.findByNumCuenta(movimientoLocal.getCuenta().getNumCuenta());
+			if (movimientoLocal.getTipoMovimiento().equals("retiro")) {
+				cuentaOperacion.setSaldoInicial(cuentaOperacion.getSaldoInicial() - movimientoLocal.getValor());
+			} else if (movimientoLocal.getTipoMovimiento().equals("deposito")) {
+				cuentaOperacion.setSaldoInicial(cuentaOperacion.getSaldoInicial() + movimientoLocal.getValor());
+			}
+			cuentaRepositorio.save(cuentaOperacion);
 			return ResponseEntity.status(HttpStatus.CREATED).body("Movimiento realizado con exito!");
 		} else {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new MovimientoEncontradoException());
+			return ResponseEntity.status(HttpStatus.OK).body(new MovimientoException().getMessage());
 		}
 	}
 
 	@Override
 	public ResponseEntity<?> listarMovimientos() {
-		return ResponseEntity.ok(movimientosRepositorio.findAll());
+		List<Movimientos> listadoMovimientos = movimientosRepositorio.findAll();
+		if (!listadoMovimientos.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.OK).body(listadoMovimientos);
+		} else {
+			return ResponseEntity.status(HttpStatus.OK)
+					.body(new MovimientoException("No hay movimientos para mostrar").getMessage());
+		}
 	}
 
 	@Override
@@ -40,7 +57,7 @@ public class MovimientosServImple implements MovimientosServicio {
 		List<Movimientos> busqueda = movimientosRepositorio.findBybFeNom(fecha, nombre);
 		if (busqueda == null)
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-					.body(new MovimientoEncontradoException("Fecha y nombre no encontrado").getMessage());
+					.body(new MovimientoException("Fecha y nombre no encontrado").getMessage());
 
 		return ResponseEntity.ok(busqueda);
 	}

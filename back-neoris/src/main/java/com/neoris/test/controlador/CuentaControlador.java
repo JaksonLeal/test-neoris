@@ -1,7 +1,5 @@
 package com.neoris.test.controlador;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -32,27 +30,27 @@ public class CuentaControlador {
 	}
 
 	@GetMapping("/{numCuenta}")
-	public ResponseEntity<Cuenta> obtenerCuenta(@PathVariable String numCuenta) throws Exception {
+	public ResponseEntity<?> obtenerCuenta(@PathVariable String numCuenta) throws Exception {
 		System.out.println("el numCuenta es " + numCuenta);
-		return ResponseEntity.ok(cuentaServicio.obtenerCuenta(numCuenta));
+		return cuentaServicio.obtenerCuenta(numCuenta);
 	}
 
 	@PutMapping("/actualizar")
-	public ResponseEntity<Cuenta> actualizarCuenta(@RequestBody Cuenta cuenta) throws Exception {
+	public ResponseEntity<?> actualizarCuenta(@RequestBody Cuenta cuenta) throws Exception {
 		System.out.println("la cuenta trae: " + cuenta.toString());
-		return ResponseEntity.ok(cuentaServicio.actualizarCuenta(cuenta));
+		return cuentaServicio.actualizarCuenta(cuenta);
 	}
 
 	@DeleteMapping("/{numCuenta}")
-	public void eliminarCuenta(@PathVariable String numCuenta) throws Exception {
+	public ResponseEntity<?> eliminarCuenta(@PathVariable String numCuenta) throws Exception {
 		System.out.println("el numCuenta es: " + numCuenta);
-		cuentaServicio.eliminarCuenta(numCuenta);
+		return cuentaServicio.eliminarCuenta(numCuenta);
 	}
 
 	@GetMapping("/listar")
-	public ResponseEntity<List<Cuenta>> listarCuentas() throws Exception {
+	public ResponseEntity<?> listarCuentas() throws Exception {
 		System.out.println("entro a listarCuentas");
-		return ResponseEntity.ok(cuentaServicio.listarCuentas());
+		return cuentaServicio.listarCuentas();
 	}
 
 }

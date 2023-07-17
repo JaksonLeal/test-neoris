@@ -1,20 +1,20 @@
 package com.neoris.test.excepciones;
 
-public class CuentaEncontradaException extends Exception {
+public class MovimientoException extends Exception{
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public CuentaEncontradaException() {
-		super("El numero de cuenta ya existe!");
+	public MovimientoException() {
+		super("No se pudo realizar el movimiento");
 		// TODO Auto-generated constructor stub
 	}
 
-	public CuentaEncontradaException(String message) {
+	public MovimientoException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
-	}	
+	}
 	
 }

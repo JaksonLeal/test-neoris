@@ -1,6 +1,6 @@
 <div *ngIf="!auxBuscar">
     <input type="number" placeholder="Ingrese el número de cuenta" #numCuenta>
-    <button (click)="buscar(numCuenta.valueAsNumber)">BUSCAR</button>
+    <button class="btnSubmit" (click)="buscar(numCuenta.valueAsNumber)">BUSCAR</button>
 </div>
 <div *ngIf="auxBuscar">
     <table>
@@ -26,15 +26,16 @@
                 <td>{{cuenta.cliente.persona.telefono}}</td>
                 <td>{{cuenta.estado == 1 ? 'activo' : 'inactivo'}}</td>
                 <td>
-                    <button (click)="Editar(cuenta)" style="width:50px">EDIT</button>
-                    <button (click)="Eliminar(cuenta)" style="width:50px">DEL</button>
+                    <button class="btnEditar" (click)="Editar(cuenta)" style="width:50px">EDIT</button>
+                    <button class="btnEliminar" (click)="Eliminar(cuenta)" style="width:50px">DEL</button>
+                    <button class="btnCrearMov" (click)="crearMovimiento(cuenta)">CREAR MOVIMIENTO</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button (click)="buscar(0)">Buscar Otro Cliente</button>
+    <button class="btnSubmit" (click)="buscar(0)">Buscar Otra Cuenta</button>
 </div>
-
+<br>
 <div *ngIf="auxEditar">
     <form action="">
         <div>
@@ -63,7 +64,35 @@
             <label for="">Id Del Cliente</label>
             <input type="number" [(ngModel)]="cuenta.cliente.clienteID" name="clienteID">
         </div>
-        <button (click)="enviar()">Guardar</button>
+        <button class="btnSubmit" (click)="enviarCliente()">Guardar</button>
     </form>
 </div>
-
+<br>
+<div *ngIf="auxCrearMov">
+    <form action="">
+        <div>
+            <label for="">Número De Cuenta: </label>
+            <b><label>{{movimiento.cuenta.numCuenta}}</label></b>
+        </div>
+        <div>
+            <label for="">Tipo De Movimiento</label>
+            <select [(ngModel)]="movimiento.tipoMovimiento" name="tipoMovimiento">
+                <option value="retiro">Retiro</option>
+                <option value="deposito">Deposito</option>
+            </select>
+        </div>
+        <div>
+            <label for="">Valor</label>
+            <input type="number" [(ngModel)]="movimiento.valor" name="valor">
+        </div>
+        <div>
+            <label for="">Saldo Disponible:</label>
+            <b><label>{{movimiento.saldo}}</label></b>
+        </div>
+        <div>
+            <label for="">Fecha</label>
+            <input type="date" [(ngModel)]="movimiento.fecha" name="fecha" placeholder="Digite la fecha">
+        </div>
+        <button class="btnSubmit" (click)="enviarMovimiento()">Guardar</button>
+    </form>
+</div>

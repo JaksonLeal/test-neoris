@@ -1,6 +1,6 @@
 <div *ngIf="!auxBuscar">
     <input type="number" placeholder="Ingrese el ID del cliente" #clienteID>
-    <button (click)="buscar(clienteID.valueAsNumber)">BUSCAR</button>
+    <button class="btnSubmit" (click)="buscar(clienteID.valueAsNumber)">BUSCAR</button>
 </div>
 <div *ngIf="auxBuscar">
     <table>
@@ -28,13 +28,13 @@
                 <td>{{cliente.contra}}</td>
                 <td>{{cliente.estado == 1 ? 'activo' : 'inactivo'}}</td>
                 <td>
-                    <button (click)="Editar(cliente)" style="width:50px">EDIT</button>
-                    <button (click)="Eliminar(cliente)" style="width:50px">DEL</button>
+                    <button class="btnEditar" (click)="Editar(cliente)" style="width:50px">EDIT</button>
+                    <button class="btnEliminar" (click)="Eliminar(cliente)" style="width:50px">DEL</button>
                 </td>
             </tr>
         </tbody>
     </table>
-    <button (click)="buscar(0)">Buscar Otro Cliente</button>
+    <button class="btnSubmit" (click)="buscar(0)">Buscar Otro Cliente</button>
 </div>
 
 <div *ngIf="auxEditar">
@@ -78,6 +78,6 @@
                 <option value="1">Activo</option>
             </select>
         </div>
-        <button (click)="enviar()">Guardar</button>
+        <button class="btnSubmit" (click)="enviar()">Guardar</button>
     </form>
 </div>
