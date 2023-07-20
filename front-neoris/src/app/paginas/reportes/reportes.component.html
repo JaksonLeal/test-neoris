@@ -1,5 +1,5 @@
 <div *ngIf="!auxBuscar" class="contenedor">
-    <input type="date"  #fecha>
+    <input type="date" #fecha>
     <input type="text" placeholder="Ingrese nombre del titular de la cuenta" #nombre>
     <button class="btn" (click)="buscar(fecha.valueAsDate, nombre.value)">BUSCAR</button>
 </div>

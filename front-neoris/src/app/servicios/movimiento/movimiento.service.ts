@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Movimiento } from 'src/app/modelo/Movimiento';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,10 @@ export class MovimientoService {
   }
 
   buscarPorFechaNombre(fecha: any, nombre: String) {
-    return this.http.get<any>(`${this.Url}/buscarPorFeNom/${fecha}/${nombre}`);
+    return this.http.get<Movimiento>(`${this.Url}/buscarPorFeNom/${fecha}/${nombre}`);
   }
 
-  guardarMovimientos(movimiento: any) {
-    return this.http.post<any>(`${this.Url}/guardar`, movimiento);
+  guardarMovimientos(movimiento: Movimiento) {
+    return this.http.post<Movimiento>(`${this.Url}/guardar`, movimiento);
   }
 }

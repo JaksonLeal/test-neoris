@@ -1,32 +1,33 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Cuenta } from 'src/app/modelo/Cuenta';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CuentaService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http: HttpClient) { }
   private Url = 'http://localhost:8080/cuentas';
   //`
-  getListCuentas(){
-    return this.http.get<any>(`${this.Url}/listar`);
+  getListCuentas() {
+    return this.http.get<Cuenta[]>(`${this.Url}/listar`);
   }
 
-  eliminarCuenta(numCuenta:any){
+  eliminarCuenta(numCuenta: any) {
     return this.http.delete<any>(`${this.Url}/${numCuenta}`);
   }
 
-  editarCuenta(cuenta:any){
-    return this.http.put<any>(`${this.Url}/actualizar`, cuenta);
-  }
-  
-  obtenerCuenta(numCuenta:any){
-    return this.http.get<any>(`${this.Url}/${numCuenta}`);
+  editarCuenta(cuenta: Cuenta) {
+    return this.http.put<Cuenta>(`${this.Url}/actualizar`, cuenta);
   }
 
-  guardarCuenta(cuenta:any){
-    return this.http.post<any>(`${this.Url}/guardar`, cuenta);
+  obtenerCuenta(numCuenta: String) {
+    return this.http.get<Cuenta>(`${this.Url}/${numCuenta}`);
   }
-  
+
+  guardarCuenta(cuenta: Cuenta) {
+    return this.http.post<Cuenta>(`${this.Url}/guardar`, cuenta);
+  }
+
 }

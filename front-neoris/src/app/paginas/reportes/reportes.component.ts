@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Movimiento } from 'src/app/modelo/Movimiento';
 import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.service';
 
 @Component({
@@ -9,9 +10,10 @@ import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.servi
 export class ReportesComponent {
 
   auxFecha: Date;
-  movimientos: any[];
+  movimientos: Movimiento[];
   auxBuscar: boolean = false;
   constructor(private movimientoServ: MovimientoService) {
+    this.movimientos = [new Movimiento()];
   }
 
   ngOnInit(): void {
@@ -20,11 +22,11 @@ export class ReportesComponent {
   buscar(fecha: any, nombre: String) {
 
     this.auxFecha = new Date(fecha);
-    fecha = this.auxFecha.getFullYear().toString() + "-" + (this.auxFecha.getMonth() + 1).toString() + "-" + (this.auxFecha.getDate() + 1).toString();
+    fecha = this.auxFecha.getFullYear().toString() + "-" + (this.auxFecha.getMonth() + 1).toString() + "-" + (this.auxFecha.getDate()).toString();
     if (!this.auxBuscar) {
-      alert(fecha + "-" + nombre);
       this.movimientoServ.buscarPorFechaNombre(fecha, nombre).subscribe({
-        next: (respuesta) => {
+        next: (respuesta: any) => {
+          console.log(respuesta);
           this.movimientos = respuesta;
         },
         error: (error) => {

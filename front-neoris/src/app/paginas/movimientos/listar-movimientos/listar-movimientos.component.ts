@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Movimiento } from 'src/app/modelo/Movimiento';
 import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.service';
 
 @Component({
@@ -8,8 +9,10 @@ import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.servi
 })
 export class ListarMovimientosComponent {
 
-  movimientos: any[];
-  constructor(private movimientoServ: MovimientoService) { }
+  movimientos: Movimiento[];
+  constructor(private movimientoServ: MovimientoService) {
+    this.movimientos = [new Movimiento()]
+  }
 
   ngOnInit(): void {
     this.movimientoServ.getListMovimientos().subscribe({

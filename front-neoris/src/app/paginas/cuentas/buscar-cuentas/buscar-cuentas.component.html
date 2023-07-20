@@ -1,6 +1,6 @@
 <div *ngIf="!auxBuscar">
     <input type="number" placeholder="Ingrese el número de cuenta" #numCuenta>
-    <button class="btnSubmit" (click)="buscar(numCuenta.valueAsNumber)">BUSCAR</button>
+    <button class="btnSubmit" (click)="buscar(numCuenta.value)">BUSCAR</button>
 </div>
 <div *ngIf="auxBuscar">
     <table>
@@ -33,7 +33,7 @@
             </tr>
         </tbody>
     </table>
-    <button class="btnSubmit" (click)="buscar(0)">Buscar Otra Cuenta</button>
+    <button class="btnSubmit" (click)="buscar('')">Buscar Otra Cuenta</button>
 </div>
 <br>
 <div *ngIf="auxEditar">
@@ -41,7 +41,7 @@
         <ul>
             <li>
                 <label for="">Número De Cuenta</label>
-                <input type="text" [(ngModel)]="cuenta.numCuenta" name="numCuenta">
+                <b><label>{{cuenta.numCuenta}}</label></b>
             </li>
             <li>
                 <label for="">Tipo De Cuenta</label>
@@ -66,7 +66,7 @@
                 <input type="number" [(ngModel)]="cuenta.cliente.clienteID" name="clienteID">
             </li>
             <button class="btnSubmit" (click)="enviarCliente()">Guardar</button>
-            <button class="btnCancelar" (click)="Editar(null)">Cancelar</button>
+            <button class="btnCancelar" (click)="Editar(cuenta)">Cancelar</button>
         </ul>
     </form>
 </div>

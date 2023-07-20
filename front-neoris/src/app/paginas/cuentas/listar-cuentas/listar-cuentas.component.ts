@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Cuenta } from 'src/app/modelo/Cuenta';
+import { Movimiento } from 'src/app/modelo/Movimiento';
 import { CuentaService } from 'src/app/servicios/cuenta/cuenta.service';
 import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.service';
 
@@ -9,31 +11,17 @@ import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.servi
 })
 export class ListarCuentasComponent {
 
-  cuentas: any[];
-  auxEditar: boolean = false;
-  cuenta: any;
-  movimiento: any;
-  auxCrearMov: boolean = false;
+  cuentas: Cuenta[];
+  auxEditar: boolean;
+  cuenta: Cuenta;
+  movimiento: Movimiento;
+  auxCrearMov: boolean;
   constructor(private cuentaServ: CuentaService, private movimientoServ: MovimientoService) {
-    this.cuenta = {
-      "numCuenta": "",
-      "tipoCuenta": "",
-      "saldoInicial": 0,
-      "estado": 0,
-      "cliente": {
-        "clienteID": 0,
-        "contra": ""
-      }
-    };
-    this.movimiento = {
-      "fecha": "",
-      "tipoMovimiento": "",
-      "valor": 0,
-      "saldo": 0,
-      "cuenta": {
-        "numCuenta": ""
-      }
-    };
+    this.cuentas = [new Cuenta()];
+    this.cuenta = new Cuenta();
+    this.movimiento = new Movimiento();
+    this.auxCrearMov = false;
+    this.auxEditar = false;
   }
 
   ngOnInit(): void {
@@ -50,7 +38,7 @@ export class ListarCuentasComponent {
     });
   }
 
-  Eliminar(cuenta: any) {
+  Eliminar(cuenta: Cuenta) {
     let pregunta = "¿Esta seguro que desea eliminar la ceunta de número " + cuenta.numCuenta + "?";
     let verificar = confirm(pregunta);
     if (verificar) {
@@ -69,7 +57,7 @@ export class ListarCuentasComponent {
     }
   }
 
-  Editar(cuenta: any) {
+  Editar(cuenta: Cuenta) {
     if (!this.auxEditar) {
       this.cuentaServ.obtenerCuenta(cuenta.numCuenta).subscribe({
         next: (respuesta) => {
@@ -106,8 +94,7 @@ export class ListarCuentasComponent {
     this.auxEditar = false;
   }
 
-  crearMovimiento(cuenta: any) {
-    console.log(cuenta);
+  crearMovimiento(cuenta: Cuenta) {
     this.movimiento.saldo = cuenta.saldoInicial;
     this.movimiento.cuenta.numCuenta = cuenta.numCuenta;
     this.auxCrearMov = true;

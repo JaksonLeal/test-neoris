@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Cuenta } from 'src/app/modelo/Cuenta';
 import { CuentaService } from 'src/app/servicios/cuenta/cuenta.service';
 
 @Component({
@@ -8,18 +9,11 @@ import { CuentaService } from 'src/app/servicios/cuenta/cuenta.service';
 })
 export class CrearCuentasComponent {
 
-  cuenta = {
-    "numCuenta": "",
-    "tipoCuenta": "",
-    "saldoInicial": 0,
-    "estado": 0,
-    "cliente": {
-      "clienteID": 0,
-      "contra": ""
-    }
-  };
+  cuenta: Cuenta;
 
-  constructor(private cuentaServ: CuentaService) { }
+  constructor(private cuentaServ: CuentaService) {
+    this.cuenta = new Cuenta();
+  }
 
   ngOnInit(): void {
   }

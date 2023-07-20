@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Cliente } from 'src/app/modelo/Cliente';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 
 @Component({
@@ -8,27 +9,14 @@ import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 })
 export class CrearClientesComponent {
 
-  public cliente: any;
+  cliente: Cliente;
 
   constructor(private clienteServ: ClienteService) {
-    this.cliente = {
-      "contra": "",
-      "estado": 0,
-      "persona": {
-        "identificacion": "",
-        "nombre": "",
-        "edad": "",
-        "genero": "",
-        "direccion": "",
-        "telefono": ""
-      }
-    };
-  }
-
-  ngOnInit(): void {
+    this.cliente = new Cliente();
   }
 
   enviar() {
+    console.log(this.cliente);
     this.clienteServ.guardarCliente(this.cliente).subscribe({
       next: (respuesta) => {
         console.log(respuesta);

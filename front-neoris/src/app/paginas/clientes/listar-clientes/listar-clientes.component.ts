@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Cliente } from 'src/app/modelo/Cliente';
 import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 
 @Component({
@@ -8,23 +9,13 @@ import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
 })
 export class ListarClientesComponent {
 
-  clientes: any[];
+  clientes: Cliente[];
   auxEditar: boolean = false;
-  cliente: any;
+  cliente: Cliente;
 
   constructor(private clienteServ: ClienteService) {
-    this.cliente = {
-      "contra": "",
-      "estado": 0,
-      "persona": {
-        "identificacion": "",
-        "nombre": "",
-        "edad": "",
-        "genero": "",
-        "direccion": "",
-        "telefono": ""
-      }
-    };
+    this.clientes = [new Cliente()];
+    this.cliente = new Cliente();
   }
 
   ngOnInit(): void {
@@ -41,7 +32,7 @@ export class ListarClientesComponent {
     });
   }
 
-  Eliminar(cliente: any) {
+  Eliminar(cliente: Cliente) {
     let pregunta = "¿Esta seguro que desea eliminar el usuario con cedula " + cliente.persona.identificacion + "?";
     let verificar = confirm(pregunta);
 
@@ -61,7 +52,7 @@ export class ListarClientesComponent {
     }
   }
 
-  Editar(cliente: any) {
+  Editar(cliente: Cliente) {
     if (!this.auxEditar) {
       this.clienteServ.obtenerCliente(cliente.clienteID).subscribe({
         next: (respuesta) => {

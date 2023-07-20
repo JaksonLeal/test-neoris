@@ -36,7 +36,7 @@
         <ul>
             <li>
                 <label for="">Número De Cuenta</label>
-                <input type="text" [(ngModel)]="cuenta.numCuenta" name="numCuenta">
+                <b><label>{{cuenta.numCuenta}}</label></b>
             </li>
             <li>
                 <label for="">Tipo De Cuenta</label>
@@ -61,7 +61,7 @@
                 <input type="number" [(ngModel)]="cuenta.cliente.clienteID" name="clienteID">
             </li>
             <button class="btnSubmit" (click)="enviar()">Guardar</button>
-            <button class="btnCancelar" (click)="Editar(null)">Cancelar</button>
+            <button class="btnCancelar" (click)="Editar(cuenta)">Cancelar</button>
         </ul>
     </form>
 </div>

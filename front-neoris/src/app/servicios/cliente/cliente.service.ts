@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Cliente } from 'src/app/modelo/Cliente';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class ClienteService {
   private Url = 'http://localhost:8080/clientes';
   //`
   getListClientes(){
-    return this.http.get<any>(`${this.Url}/listar`);
+    return this.http.get<Cliente[]>(`${this.Url}/listar`);
   }
 
   eliminarCliente(clienteId:any){
@@ -18,15 +19,15 @@ export class ClienteService {
   }
 
   editarCliente(cliente:any){
-    return this.http.put<any>(`${this.Url}/actualizar`, cliente);
+    return this.http.put<Cliente>(`${this.Url}/actualizar`, cliente);
   }
   
-  obtenerCliente(clienteId:any){
-    return this.http.get<any>(`${this.Url}/${clienteId}`);
+  obtenerCliente(clienteId:number){
+    return this.http.get<Cliente>(`${this.Url}/${clienteId}`);
   }
 
-  guardarCliente(cliente:any){
-    return this.http.post<any>(`${this.Url}/guardar`, cliente);
+  guardarCliente(cliente:Cliente){
+    return this.http.post<Cliente>(`${this.Url}/guardar`, cliente);
   }
 
 }

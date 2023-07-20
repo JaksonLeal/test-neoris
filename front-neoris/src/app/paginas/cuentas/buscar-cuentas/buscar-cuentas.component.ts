@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Cuenta } from 'src/app/modelo/Cuenta';
+import { Movimiento } from 'src/app/modelo/Movimiento';
 import { CuentaService } from 'src/app/servicios/cuenta/cuenta.service';
 import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.service';
 
@@ -9,38 +11,21 @@ import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.servi
 })
 export class BuscarCuentasComponent {
 
-  cuenta: any;
-  auxBuscar: boolean = false;
-  auxEditar: boolean = false;
-  auxCrearMov: boolean = false;
-  movimiento: any;
+  auxBuscar: boolean;
+  auxEditar: boolean;
+  cuenta: Cuenta;
+  movimiento: Movimiento;
+  auxCrearMov: boolean;
 
   constructor(private cuentaServ: CuentaService, private movimientoServ: MovimientoService) {
-    this.movimiento = {
-      "fecha": "",
-      "tipoMovimiento": "",
-      "valor": 0,
-      "saldo": 0,
-      "cuenta": {
-        "numCuenta": ""
-      }
-    };
-    this.cuenta = {
-      "numCuenta": "",
-      "tipoCuenta": "",
-      "saldoInicial": 0,
-      "estado": 0,
-      "cliente": {
-        "clienteID": 0,
-        "contra": ""
-      }
-    };
+    this.cuenta = new Cuenta();
+    this.movimiento = new Movimiento();
+    this.auxCrearMov = false;
+    this.auxEditar = false;
+    this.auxBuscar = false;
   }
 
-  ngOnInit(): void {
-  }
-
-  buscar(numCuenta: any) {
+  buscar(numCuenta: String) {
     if (!this.auxBuscar) {
       this.cuentaServ.obtenerCuenta(numCuenta).subscribe({
         next: (respuesta) => {
@@ -59,7 +44,7 @@ export class BuscarCuentasComponent {
     }
   }
 
-  Eliminar(cuenta: any) {
+  Eliminar(cuenta: Cuenta) {
     let pregunta = "¿Esta seguro que desea eliminar la cuenta N° " + cuenta.numCuenta + "?";
     let verificar = confirm(pregunta);
     if (verificar) {
@@ -79,7 +64,7 @@ export class BuscarCuentasComponent {
     }
   }
 
-  Editar(cuenta: any) {
+  Editar(cuenta: Cuenta) {
     if (!this.auxEditar) {
       this.cuentaServ.obtenerCuenta(cuenta.numCuenta).subscribe({
         next: (respuesta) => {
@@ -115,8 +100,7 @@ export class BuscarCuentasComponent {
     this.auxBuscar = false;
   }
 
-  crearMovimiento(cuenta: any) {
-    console.log(cuenta);
+  crearMovimiento(cuenta: Cuenta) {
     this.movimiento.saldo = cuenta.saldoInicial;
     this.movimiento.cuenta.numCuenta = cuenta.numCuenta;
     this.auxCrearMov = true;
