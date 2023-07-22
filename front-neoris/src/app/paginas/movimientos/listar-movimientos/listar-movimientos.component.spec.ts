@@ -1,21 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListarMovimientosComponent } from './listar-movimientos.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ListarMovimientosComponent', () => {
-  let component: ListarMovimientosComponent;
-  let fixture: ComponentFixture<ListarMovimientosComponent>;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ListarMovimientosComponent]
     });
-    fixture = TestBed.createComponent(ListarMovimientosComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('should create ListarMovimientosComponent', () => {
+    const fixture = TestBed.createComponent(ListarMovimientosComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });

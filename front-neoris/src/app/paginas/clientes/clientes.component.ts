@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BuscarClientesComponent } from './buscar-clientes/buscar-clientes.component';
 
 @Component({
   selector: 'app-clientes',

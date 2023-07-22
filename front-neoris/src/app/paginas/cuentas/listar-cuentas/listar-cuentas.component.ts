@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { Cuenta } from 'src/app/modelo/Cuenta';
-import { Movimiento } from 'src/app/modelo/Movimiento';
-import { CuentaService } from 'src/app/servicios/cuenta/cuenta.service';
-import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.service';
+import { Cuenta } from '../../../modelo/Cuenta';
+import { Movimiento } from '../../../modelo/Movimiento';
+import { CuentaService } from '../../../servicios/cuenta/cuenta.service';
+import { MovimientoService } from '../../../servicios/movimiento/movimiento.service';
 
 @Component({
   selector: 'app-listar-cuentas',

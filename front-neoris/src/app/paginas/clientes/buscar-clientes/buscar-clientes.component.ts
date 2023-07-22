@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Cliente } from 'src/app/modelo/Cliente';
-import { ClienteService } from 'src/app/servicios/cliente/cliente.service';
+import { Cliente } from '../../../modelo/Cliente';
+import { ClienteService } from '../../../servicios/cliente/cliente.service';
 
 @Component({
   selector: 'app-buscar-clientes',

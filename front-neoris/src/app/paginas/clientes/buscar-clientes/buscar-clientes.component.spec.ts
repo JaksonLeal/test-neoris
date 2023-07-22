@@ -1,21 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { BuscarClientesComponent } from './buscar-clientes.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('BuscarClientesComponent', () => {
-  let component: BuscarClientesComponent;
-  let fixture: ComponentFixture<BuscarClientesComponent>;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [BuscarClientesComponent]
     });
-    fixture = TestBed.createComponent(BuscarClientesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('should create BuscarClientesComponent', () => {
+    const fixture = TestBed.createComponent(BuscarClientesComponent);
+    const component = fixture.componentInstance; 
     expect(component).toBeTruthy();
   });
 });

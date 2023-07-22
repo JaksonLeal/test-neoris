@@ -1,21 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportesComponent } from './reportes.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ReportesComponent', () => {
-  let component: ReportesComponent;
-  let fixture: ComponentFixture<ReportesComponent>;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [ReportesComponent]
     });
-    fixture = TestBed.createComponent(ReportesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('should create ReportesComponent', () => {
+    const fixture = TestBed.createComponent(ReportesComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });

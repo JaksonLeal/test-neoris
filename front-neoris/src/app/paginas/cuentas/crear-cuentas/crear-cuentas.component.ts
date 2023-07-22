@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Cuenta } from 'src/app/modelo/Cuenta';
-import { CuentaService } from 'src/app/servicios/cuenta/cuenta.service';
+import { Cuenta } from '../../../modelo/Cuenta';
+import { CuentaService } from '../../../servicios/cuenta/cuenta.service';
 
 @Component({
   selector: 'app-crear-cuentas',

@@ -8,7 +8,7 @@ import { Movimiento } from 'src/app/modelo/Movimiento';
 export class MovimientoService {
 
   constructor(private http: HttpClient) { }
-  private Url = 'http://localhost:8080/movimientos';
+  public Url = 'http://localhost:8080/movimientos';
   //`
   getListMovimientos() {
     return this.http.get<any>(`${this.Url}/listar`);

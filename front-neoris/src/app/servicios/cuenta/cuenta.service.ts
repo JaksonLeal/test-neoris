@@ -8,7 +8,7 @@ import { Cuenta } from 'src/app/modelo/Cuenta';
 export class CuentaService {
 
   constructor(private http: HttpClient) { }
-  private Url = 'http://localhost:8080/cuentas';
+  public Url = 'http://localhost:8080/cuentas';
   //`
   getListCuentas() {
     return this.http.get<Cuenta[]>(`${this.Url}/listar`);

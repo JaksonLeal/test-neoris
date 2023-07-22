@@ -1,21 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrearCuentasComponent } from './crear-cuentas.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CrearCuentasComponent', () => {
-  let component: CrearCuentasComponent;
-  let fixture: ComponentFixture<CrearCuentasComponent>;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       declarations: [CrearCuentasComponent]
     });
-    fixture = TestBed.createComponent(CrearCuentasComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
-
-  it('should create', () => {
+  it('should create CrearCuentasComponent', () => {
+    const fixture = TestBed.createComponent(CrearCuentasComponent);
+    const component = fixture.componentInstance;
     expect(component).toBeTruthy();
   });
 });

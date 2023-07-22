@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { Movimiento } from 'src/app/modelo/Movimiento';
-import { MovimientoService } from 'src/app/servicios/movimiento/movimiento.service';
+import { Movimiento } from '../../../modelo/Movimiento';
+import { MovimientoService } from '../../../servicios/movimiento/movimiento.service';
 
 @Component({
   selector: 'app-listar-movimientos',

@@ -8,7 +8,7 @@ import { Cliente } from 'src/app/modelo/Cliente';
 export class ClienteService {
 
   constructor(private http:HttpClient) { }
-  private Url = 'http://localhost:8080/clientes';
+  public Url = 'http://localhost:8080/clientes';
   //`
   getListClientes(){
     return this.http.get<Cliente[]>(`${this.Url}/listar`);
