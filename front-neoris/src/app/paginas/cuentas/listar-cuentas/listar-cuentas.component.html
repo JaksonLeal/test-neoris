@@ -67,32 +67,48 @@
 </div>
 <br>
 <div *ngIf="auxCrearMov">
-    <form action="">
+    <form #forMov="ngForm" (ngSubmit)="enviarMovimiento()">
+
         <ul>
             <li>
-                <label for="">Número De Cuenta: </label>
+                <label>Número De Cuenta: </label>
                 <b><label>{{movimiento.cuenta.numCuenta}}</label></b>
             </li>
             <li>
-                <label for="">Tipo De Movimiento</label>
-                <select [(ngModel)]="movimiento.tipoMovimiento" name="tipoMovimiento">
+                <label>Tipo De Movimiento</label>
+                <select [(ngModel)]="movimiento.tipoMovimiento" name="tipoMovimiento" required
+                    #tipoMovimiento="ngModel">
                     <option value="retiro">Retiro</option>
                     <option value="deposito">Deposito</option>
                 </select>
+                <div *ngIf="tipoMovimiento.invalid && (tipoMovimiento.dirty || tipoMovimiento.touched)">
+                    <div *ngIf="tipoMovimiento.errors?.['required']">
+                        Escoja un tipo de movimiento!
+                    </div>
+                </div>
             </li>
             <li>
-                <label for="">Valor</label>
-                <input type="number" [(ngModel)]="movimiento.valor" name="valor">
+                <label>Valor</label>
+                <input type="number" [(ngModel)]="movimiento.valor" name="valor" required #valor="ngModel"
+                    pattern="^[0-9]+" [min]="1" placeholder="Digite el monto">
+                <div *ngIf="valor.invalid && (valor.dirty || valor.touched)">
+                    <div *ngIf="valor.errors?.['min']">
+                        El valor de movimiento debe ser mayor de cero.
+                    </div>
+                    <div *ngIf="valor.errors?.['pattern']">
+                        Digite un valor para la transaccion!
+                    </div>
+                </div>
             </li>
             <li>
-                <label for="">Saldo Disponible:</label>
+                <label>Saldo Disponible:</label>
                 <b><label>{{movimiento.saldo}}</label></b>
             </li>
             <li>
-                <label for="">Fecha</label>
-                <input type="date" [(ngModel)]="movimiento.fecha" name="fecha" placeholder="Digite la fecha">
+                <label>Fecha</label>
+                <input type="date" [(ngModel)]="movimiento.fecha" name="fecha">
             </li>
-            <button class="btnSubmit" (click)="enviarMovimiento()">Guardar</button>
+            <button class="btnSubmit" [disabled]="!forMov.form.valid">Guardar</button>
         </ul>
     </form>
 </div>
