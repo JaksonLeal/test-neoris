@@ -100,7 +100,7 @@ export class ListarCuentasComponent {
     this.auxCrearMov = true;
   }
   enviarMovimiento() {
-    if(!(this.movimiento.tipoMovimiento == "retiro" && (this.movimiento.valor > this.movimiento.saldo))){
+    if (!(this.movimiento.tipoMovimiento == "retiro" && (this.movimiento.valor > this.movimiento.saldo))) {
       this.movimientoServ.guardarMovimientos(this.movimiento).subscribe({
         next: (respuesta) => {
           console.log(respuesta);
@@ -115,7 +115,7 @@ export class ListarCuentasComponent {
         }
       });
       this.auxCrearMov = false;
-    }else{
+    } else {
       alert("El valor del movimiento no puede ser mayor que el saldo disponible");
     }
   }

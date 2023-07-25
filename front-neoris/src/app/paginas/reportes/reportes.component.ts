@@ -9,9 +9,10 @@ import { MovimientoService } from '../../servicios/movimiento/movimiento.service
 })
 export class ReportesComponent {
 
-  auxFecha: Date;
-  movimientos: Movimiento[];
-  auxBuscar: boolean = false;
+  public auxFecha: Date;
+  public movimientos: Movimiento[];
+  public auxBuscar: boolean = false;
+  public page!: number;
   constructor(private movimientoServ: MovimientoService) {
     this.movimientos = [new Movimiento()];
   }

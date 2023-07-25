@@ -12,7 +12,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let movimiento of movimientos">
+            <tr *ngFor="let movimiento of movimientos | paginate: { itemsPerPage: 10, currentPage: page }">
                 <td>{{movimiento.cuenta.numCuenta}}</td>
                 <td>{{movimiento.cuenta.tipoCuenta}}</td>
                 <td>{{movimiento.tipoMovimiento}}</td>
@@ -23,4 +23,7 @@
             </tr>
         </tbody>
     </table>
+</div>
+<div>
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
 </div>

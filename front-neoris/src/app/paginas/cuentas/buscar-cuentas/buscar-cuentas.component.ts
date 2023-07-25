@@ -106,20 +106,24 @@ export class BuscarCuentasComponent {
     this.auxCrearMov = true;
   }
   enviarMovimiento() {
-    this.movimientoServ.guardarMovimientos(this.movimiento).subscribe({
-      next: (respuesta) => {
-        console.log(respuesta);
-      },
-      error: (error) => {
-        let mensaje = error.error.text;
-        let verificar = confirm(mensaje);
-        verificar ? window.location.reload() : window.location.reload();
-      },
-      complete: () => {
-        console.log("exitoso");
-      }
-    });
-    this.auxCrearMov = false;
+    if (!(this.movimiento.tipoMovimiento == "retiro" && (this.movimiento.valor > this.movimiento.saldo))) {
+      this.movimientoServ.guardarMovimientos(this.movimiento).subscribe({
+        next: (respuesta) => {
+          console.log(respuesta);
+        },
+        error: (error) => {
+          let mensaje = error.error.text;
+          let verificar = confirm(mensaje);
+          verificar ? window.location.reload() : window.location.reload();
+        },
+        complete: () => {
+          console.log("exitoso");
+        }
+      });
+      this.auxCrearMov = false;
+    } else {
+      alert("El valor del movimiento no puede ser mayor que el saldo disponible");
+    }
   }
 
 }

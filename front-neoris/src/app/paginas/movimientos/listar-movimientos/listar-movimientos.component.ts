@@ -9,7 +9,8 @@ import { MovimientoService } from '../../../servicios/movimiento/movimiento.serv
 })
 export class ListarMovimientosComponent {
 
-  movimientos: Movimiento[];
+  public movimientos: Movimiento[];
+  public page!: number;
   constructor(private movimientoServ: MovimientoService) {
     this.movimientos = [new Movimiento()]
   }

@@ -4,30 +4,36 @@
     <button class="btn" (click)="buscar(fecha.valueAsDate, nombre.value)">BUSCAR</button>
 </div>
 <div *ngIf="auxBuscar" style="margin-top: 25px;">
-    <table>
-        <thead>
-            <tr>
-                <th>N° CUENTA</th>
-                <th>TIPO DE CUENTA</th>
-                <th>TIPO DE MOVIMIENTO</th>
-                <th>VALOR</th>
-                <th>SALDO DISPONIBLE</th>
-                <th>CLIENTE</th>
-                <th>IDENTIFICACION</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let movimiento of movimientos">
-                <td>{{movimiento.cuenta.numCuenta}}</td>
-                <td>{{movimiento.cuenta.tipoCuenta}}</td>
-                <td>{{movimiento.tipoMovimiento}}</td>
-                <td>{{movimiento.valor}}</td>
-                <td>{{movimiento.saldo}}</td>
-                <td>{{movimiento.cuenta.cliente.persona.nombre}}</td>
-                <td>{{movimiento.cuenta.cliente.persona.identificacion}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>N° CUENTA</th>
+                    <th>TIPO DE CUENTA</th>
+                    <th>TIPO DE MOVIMIENTO</th>
+                    <th>VALOR</th>
+                    <th>SALDO DISPONIBLE</th>
+                    <th>CLIENTE</th>
+                    <th>IDENTIFICACION</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let movimiento of movimientos | paginate: { itemsPerPage: 10, currentPage: page }">
+                    <td>{{movimiento.cuenta.numCuenta}}</td>
+                    <td>{{movimiento.cuenta.tipoCuenta}}</td>
+                    <td>{{movimiento.tipoMovimiento}}</td>
+                    <td>{{movimiento.valor}}</td>
+                    <td>{{movimiento.saldo}}</td>
+                    <td>{{movimiento.cuenta.cliente.persona.nombre}}</td>
+                    <td>{{movimiento.cuenta.cliente.persona.identificacion}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <pagination-controls (pageChange)="page = $event" previousLabel="Anterior"
+            nextLabel="Siguiente"></pagination-controls>
+    </div>
     <button class="btn" (click)="buscar('','')">Buscar Otro Cliente</button>
     <button class="btn" onclick="window.print()">Imprimir Reporte</button>
 </div>
