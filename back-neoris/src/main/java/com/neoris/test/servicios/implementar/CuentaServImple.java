@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.neoris.test.excepciones.CuentaException;
@@ -23,14 +24,22 @@ public class CuentaServImple implements CuentaServicio {
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	@Override
 	public ResponseEntity<?> guardarCuenta(Cuenta cuenta) throws Exception {
 		Cuenta cuentaLocal = cuentaRepositorio.findByNumCuenta(cuenta.getNumCuenta());
 		Cliente clienteLocal = clienteRepositorio.findByClienteID(cuenta.getCliente().getClienteID());
 		if (cuentaLocal == null) {
 			if (clienteLocal != null) {
-				cuentaRepositorio.save(cuenta);
-				return ResponseEntity.status(HttpStatus.OK).body("Cuenta creada!");
+				boolean validarContras = bCryptPasswordEncoder.matches(cuenta.getCliente().getContra(), clienteLocal.getContra());
+				if(validarContras) {
+					cuentaRepositorio.save(cuenta);
+					return ResponseEntity.status(HttpStatus.OK).body("Cuenta creada!");
+				}
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new CuentaException("Contraseña incorrecta").getMessage());
 			} else {
 				return ResponseEntity.status(HttpStatus.OK)
 						.body(new CuentaException("No existe cliente con ese ID").getMessage());

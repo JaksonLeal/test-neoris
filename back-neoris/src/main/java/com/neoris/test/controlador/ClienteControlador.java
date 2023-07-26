@@ -24,7 +24,7 @@ public class ClienteControlador {
 	@Autowired
 	private ClienteServicio clienteServicio;
 	
-	@Autowired(required=true)
+	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 	@PostMapping("/guardar")
