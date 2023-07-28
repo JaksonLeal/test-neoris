@@ -1,5 +1,4 @@
 FROM openjdk:17-alpine
-VOLUME /tmp
 EXPOSE 8080
 ARG JAR_FILE=target/test-0.0.1-SNAPSHOT.jar
 ADD ${JAR_FILE} test_neoris.jar
