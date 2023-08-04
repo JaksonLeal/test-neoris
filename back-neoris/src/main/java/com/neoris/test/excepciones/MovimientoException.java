@@ -1,6 +1,6 @@
 package com.neoris.test.excepciones;
 
-public class MovimientoException extends Exception{
+public class MovimientoException extends Exception {
 
 	/**
 	 * 
@@ -16,5 +16,5 @@ public class MovimientoException extends Exception{
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 }

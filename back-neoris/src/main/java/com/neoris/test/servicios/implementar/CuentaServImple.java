@@ -26,15 +26,16 @@ public class CuentaServImple implements CuentaServicio {
 
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
+
 	@Override
 	public ResponseEntity<?> guardarCuenta(Cuenta cuenta) throws Exception {
 		Cuenta cuentaLocal = cuentaRepositorio.findByNumCuenta(cuenta.getNumCuenta());
 		Cliente clienteLocal = clienteRepositorio.findByClienteID(cuenta.getCliente().getClienteID());
-		if (cuentaLocal == null) {
-			if (clienteLocal != null) {
-				boolean validarContras = bCryptPasswordEncoder.matches(cuenta.getCliente().getContra(), clienteLocal.getContra());
-				if(validarContras) {
+		if (cuentaLocal == null) { // valida si no existe la cuenta en mySQL
+			if (clienteLocal != null) { // valida si existe la cuenta en mySQL
+				boolean validarContras = bCryptPasswordEncoder.matches(cuenta.getCliente().getContra(),
+						clienteLocal.getContra());
+				if (validarContras) { // valida si la contraseña digitada es igual a la contraseña en mySQL
 					cuentaRepositorio.save(cuenta);
 					return ResponseEntity.status(HttpStatus.OK).body("Cuenta creada!");
 				}
@@ -53,7 +54,7 @@ public class CuentaServImple implements CuentaServicio {
 	public ResponseEntity<?> obtenerCuenta(String numCuenta) throws Exception {
 
 		Cuenta buscarCuenta = cuentaRepositorio.findByNumCuenta(numCuenta);
-		if (buscarCuenta != null) {
+		if (buscarCuenta != null) { // valida si existe la cuenta en mySQL
 			return ResponseEntity.status(HttpStatus.OK).body(cuentaRepositorio.findByNumCuenta(numCuenta));
 		} else {
 			return ResponseEntity.status(HttpStatus.OK).body(new CuentaException("Cuenta no encontrada").getMessage());
@@ -63,7 +64,7 @@ public class CuentaServImple implements CuentaServicio {
 	@Override
 	public ResponseEntity<?> actualizarCuenta(Cuenta cuenta) throws Exception {
 		Cuenta cuentaLocal = cuentaRepositorio.findByNumCuenta(cuenta.getNumCuenta());
-		if (cuentaLocal != null) {
+		if (cuentaLocal != null) { // valida si existe la cuenta en mySQL
 			cuentaRepositorio.save(cuenta);
 			return ResponseEntity.status(HttpStatus.OK).body("Cuenta actualizada");
 		} else {
@@ -75,7 +76,7 @@ public class CuentaServImple implements CuentaServicio {
 	public ResponseEntity<?> eliminarCuenta(String numCuenta) throws Exception {
 		cuentaRepositorio.deleteById(numCuenta);
 		Cuenta cuentaEliminado = cuentaRepositorio.findByNumCuenta(numCuenta);
-		if (cuentaEliminado == null) {
+		if (cuentaEliminado == null) { // valida si la cuenta fue eliminada de mySQL
 			return ResponseEntity.status(HttpStatus.OK).body("Cuenta eliminada");
 		} else {
 			return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -86,7 +87,7 @@ public class CuentaServImple implements CuentaServicio {
 	@Override
 	public ResponseEntity<?> listarCuentas() {
 		List<Cuenta> listadoCuentas = cuentaRepositorio.findAll();
-		if (!listadoCuentas.isEmpty()) {
+		if (!listadoCuentas.isEmpty()) { // valida si no existen cuentas en mySQL
 			return ResponseEntity.status(HttpStatus.OK).body(listadoCuentas);
 		} else {
 			return ResponseEntity.status(HttpStatus.OK)

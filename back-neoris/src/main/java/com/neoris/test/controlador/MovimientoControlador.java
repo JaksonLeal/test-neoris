@@ -34,10 +34,10 @@ public class MovimientoControlador {
 		System.out.println("entro a listarMovimiento");
 		return movimientosServicio.listarMovimientos();
 	}
-	
+
 	@GetMapping("/buscarPorFeNom/{fecha}/{nombre}")
 	public ResponseEntity<?> buscarPorFeNom(@PathVariable Date fecha, @PathVariable String nombre) throws Exception {
-		System.out.println("Entro a buscarPorRango y trae"+fecha+"<>"+nombre);
+		System.out.println("Entro a buscarPorRango y trae" + fecha + "<>" + nombre);
 		return movimientosServicio.buscarPorFeNom(fecha, nombre);
 	}
 

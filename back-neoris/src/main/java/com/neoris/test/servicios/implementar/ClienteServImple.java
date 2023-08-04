@@ -21,7 +21,7 @@ public class ClienteServImple implements ClienteServicio {
 	@Override
 	public ResponseEntity<?> guardarCliente(Cliente cliente) throws Exception {
 		Cliente clienteLocal = clienteRepositorio.findByPersonaId(cliente.getPersona().getIdentificacion());
-		if (clienteLocal == null) {
+		if (clienteLocal == null) { // valida si no existe el cliente en mySQL
 			clienteLocal = clienteRepositorio.save(cliente);
 			return ResponseEntity.status(HttpStatus.CREATED)
 					.body("Cliente creado, su ID es: " + clienteLocal.getClienteID());
@@ -33,7 +33,7 @@ public class ClienteServImple implements ClienteServicio {
 	@Override
 	public ResponseEntity<?> obtenerCliente(Long id) throws Exception {
 		Cliente buscarCliente = clienteRepositorio.findByClienteID(id);
-		if (buscarCliente != null) {
+		if (buscarCliente != null) { // valida si existe el cliente en mySQL
 			return ResponseEntity.status(HttpStatus.OK).body(clienteRepositorio.findByClienteID(id));
 		} else {
 			return ResponseEntity.status(HttpStatus.OK)
@@ -44,7 +44,7 @@ public class ClienteServImple implements ClienteServicio {
 	@Override
 	public ResponseEntity<?> actualizarCliente(Cliente cliente) throws Exception {
 		Cliente clienteLocal = clienteRepositorio.findByClienteID(cliente.getClienteID());
-		if (clienteLocal != null) {
+		if (clienteLocal != null) { // valida si existe el cliente en mySQL
 			clienteRepositorio.save(cliente);
 			return ResponseEntity.status(HttpStatus.OK).body("Cliente actualizado");
 		} else {
@@ -56,7 +56,7 @@ public class ClienteServImple implements ClienteServicio {
 	public ResponseEntity<?> eliminarCliente(Long id) throws Exception {
 		clienteRepositorio.deleteById(id);
 		Cliente clienteEliminado = clienteRepositorio.findByClienteID(id);
-		if (clienteEliminado == null) {
+		if (clienteEliminado == null) { // valida si se elimino el cliente en mySQL
 			return ResponseEntity.status(HttpStatus.OK).body("Cliente eliminado");
 		} else {
 			return ResponseEntity.status(HttpStatus.CONFLICT)
@@ -67,7 +67,7 @@ public class ClienteServImple implements ClienteServicio {
 	@Override
 	public ResponseEntity<?> listarClientes() {
 		List<Cliente> listadoClientes = clienteRepositorio.findAll();
-		if (!listadoClientes.isEmpty()) {
+		if (!listadoClientes.isEmpty()) { // valida si existen clientes registrados en mySQL
 			return ResponseEntity.status(HttpStatus.OK).body(listadoClientes);
 		} else {
 			return ResponseEntity.status(HttpStatus.OK)

@@ -23,7 +23,7 @@ public class ClienteControlador {
 
 	@Autowired
 	private ClienteServicio clienteServicio;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
 

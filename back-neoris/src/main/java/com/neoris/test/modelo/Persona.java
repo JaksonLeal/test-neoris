@@ -11,24 +11,24 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "persona")
 public class Persona {
-	
+
 	@Id
 	private String identificacion;
-	
+
 	private String nombre;
-	
+
 	private String genero;
-	
+
 	private String edad;
-	
+
 	private String direccion;
-	
+
 	private String telefono;
-	
+
 	@JsonIgnore
 	@OneToOne(mappedBy = "persona", cascade = CascadeType.ALL)
 	private Cliente cliente;
-	
+
 	public Persona() {
 		super();
 	}
@@ -91,7 +91,7 @@ public class Persona {
 	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
-	
+
 	public Cliente getCliente() {
 		return cliente;
 	}
@@ -105,7 +105,5 @@ public class Persona {
 		return "Persona [identificacion=" + identificacion + ", nombre=" + nombre + ", genero=" + genero + ", edad="
 				+ edad + ", direccion=" + direccion + ", telefono=" + telefono + "]";
 	}
-	
-	
-	
+
 }

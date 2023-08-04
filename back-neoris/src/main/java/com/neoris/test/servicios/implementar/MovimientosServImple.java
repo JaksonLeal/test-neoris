@@ -27,11 +27,12 @@ public class MovimientosServImple implements MovimientosServicio {
 	@Override
 	public ResponseEntity<?> guardarMovimiento(Movimientos movimiento) throws Exception {
 		Movimientos movimientoLocal = movimientosRepositorio.save(movimiento);
-		if (movimientoLocal.getID() != null) {
+		if (movimientoLocal.getID() != null) { // valida si pudo guardar el movimiento en mySQL
 			Cuenta cuentaOperacion = cuentaRepositorio.findByNumCuenta(movimientoLocal.getCuenta().getNumCuenta());
-			if (movimientoLocal.getTipoMovimiento().equals("retiro")) {
+			if (movimientoLocal.getTipoMovimiento().equals("retiro")) { // valida si el tipo de movimiento es retiro
 				cuentaOperacion.setSaldoInicial(cuentaOperacion.getSaldoInicial() - movimientoLocal.getValor());
-			} else if (movimientoLocal.getTipoMovimiento().equals("deposito")) {
+			} else if (movimientoLocal.getTipoMovimiento().equals("deposito")) { // valida si el tipo de movimiento es
+																					// deposito
 				cuentaOperacion.setSaldoInicial(cuentaOperacion.getSaldoInicial() + movimientoLocal.getValor());
 			}
 			cuentaRepositorio.save(cuentaOperacion);
@@ -44,7 +45,7 @@ public class MovimientosServImple implements MovimientosServicio {
 	@Override
 	public ResponseEntity<?> listarMovimientos() {
 		List<Movimientos> listadoMovimientos = movimientosRepositorio.findAll();
-		if (!listadoMovimientos.isEmpty()) {
+		if (!listadoMovimientos.isEmpty()) { // valida si existen movimientos en mySQL
 			return ResponseEntity.status(HttpStatus.OK).body(listadoMovimientos);
 		} else {
 			return ResponseEntity.status(HttpStatus.OK)
@@ -55,10 +56,9 @@ public class MovimientosServImple implements MovimientosServicio {
 	@Override
 	public ResponseEntity<?> buscarPorFeNom(Date fecha, String nombre) {
 		List<Movimientos> busqueda = movimientosRepositorio.findBybFeNom(fecha, nombre);
-		if (busqueda == null)
+		if (busqueda == null) // valida si no se encontro el reporte en mySQL
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST)
 					.body(new MovimientoException("Fecha y nombre no encontrado").getMessage());
-
 		return ResponseEntity.ok(busqueda);
 	}
 

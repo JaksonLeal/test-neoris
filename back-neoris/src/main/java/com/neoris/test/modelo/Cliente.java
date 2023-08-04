@@ -31,7 +31,7 @@ public class Cliente {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Cuenta> cuenta;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL) 
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "persona_id", referencedColumnName = "identificacion")
 	private Persona persona;
 
